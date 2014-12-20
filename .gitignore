@@ -1,0 +1,5 @@
+*.o
+*.a
+led-matrix
+minimal-example
+text-example
