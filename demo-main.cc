@@ -857,7 +857,7 @@ static int usage(const char *progname) {
 
 int main(int argc, char *argv[]) {
   bool as_daemon = false;
-  int runtime_seconds = -1;
+  double runtime_seconds = -1;
   int demo = -1;
   int rows = 32;
   int chain = 1;
@@ -880,7 +880,7 @@ int main(int argc, char *argv[]) {
       break;
 
     case 't':
-      runtime_seconds = atoi(optarg);
+      runtime_seconds = atof(optarg);
       break;
 
     case 'r':
@@ -1034,9 +1034,9 @@ int main(int argc, char *argv[]) {
   // things here in parallel. In this demo, we're essentially just
   // waiting for one of the conditions to exit.
   if (as_daemon) {
-    sleep(runtime_seconds > 0 ? runtime_seconds : INT_MAX);
+    usleep(1000000 * runtime_seconds > 0 ? runtime_seconds : INT_MAX);
   } else if (runtime_seconds > 0) {
-    sleep(runtime_seconds);
+    usleep(1000000 * runtime_seconds);
   } else {
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
